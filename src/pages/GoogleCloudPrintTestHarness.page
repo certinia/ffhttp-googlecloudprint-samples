@@ -1,0 +1,118 @@
+<apex:page controller="GoogleCloudPrintTestController" id="page"
+	docType="html-5.0" tabStyle="Google_Cloud_Print_Test_Harness__tab">
+
+	<apex:form id="mainForm">
+		<apex:pageblock id="mainBlock"
+			title="Google Cloud Print API Test Harness">
+			<apex:pageBlockSection columns="1" collapsible="false">
+				<apex:outputText>
+					This page allows all the Google Cloud Print API calls to be tested. 
+					It requires an authenticated Google Cloud Print connector (with the connector type name 'Google Cloud Print API') to function correctly.
+				</apex:outputText>
+			</apex:pageBlockSection>
+			
+			<apex:pageBlockSection id="messages" title="Callout Details"
+				columns="1" collapsible="true">
+				<apex:pagemessages />
+			</apex:pageBlockSection>
+
+			<!-- Submitting Print Jobs -->
+			<apex:actionRegion id="gcloudprintsubmittingprintjobsactionregion">
+				<apex:pageBlockSection id="submittingprintjobs"
+					title="Submitting Print Jobs" columns="2" collapsible="true">
+
+					<apex:pageBlockSection id="gcloudprintsubmit" title="SUBMIT"
+						columns="1" collapsible="false">
+						<apex:outputLink value="https://developers.google.com/cloud-print/docs/appInterfaces#submit">
+	                        https://developers.google.com/cloud-print/docs/appInterfaces#submit
+	                    </apex:outputLink>
+						<apex:inputText label="Printer Id"
+							value="{!gcloudprintSubmitRequestPrinterId}" />
+						<apex:inputText label="Title"
+							value="{!gcloudprintSubmitRequestTitle}" />
+						<apex:inputFile value="{!gcloudprintSubmitRequestFileBody}"
+							contentType="{!gcloudprintSubmitRequestContentType}" />
+						<apex:commandButton value="Submit"
+							action="{!gcloudprintSubmitRequest}" />
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection id="gcloudprintdeletejob" title="DELETE JOB"
+						columns="1" collapsible="false">
+						<apex:outputLink value="https://developers.google.com/cloud-print/docs/appInterfaces#deletejob">
+	                        https://developers.google.com/cloud-print/docs/appInterfaces#deletejob
+	                    </apex:outputLink>
+						<apex:inputText label="Job Id"
+							value="{!gcloudprintDeleteJobRequestJobId}" />
+						<apex:commandButton value="Submit"
+							action="{!gcloudprintDeleteJobRequest}" />
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection id="gcloudprintjobs" title="JOBS"
+						columns="1" collapsible="false">
+						<apex:outputLink value="https://developers.google.com/cloud-print/docs/appInterfaces#jobs">
+	                        https://developers.google.com/cloud-print/docs/appInterfaces#jobs
+	                    </apex:outputLink>
+	                    <apex:inputText label="Printer Id"
+							value="{!gcloudprintJobsRequestPrinterId}" />
+						<apex:inputText label="Owner"
+							value="{!gcloudprintJobsRequestOwner}" />
+	                    <apex:selectRadio label="Status"
+							value="{!gcloudprintJobsRequestStatus}">
+							<apex:selectOptions value="{!jobStatuses}" />
+						</apex:selectRadio>
+						<apex:inputText label="Query"
+							value="{!gcloudprintJobsRequestQ}" />
+						<apex:inputText label="Offset"
+							value="{!gcloudprintJobsRequestOffset}" />
+						<apex:inputText label="Limit"
+							value="{!gcloudprintJobsRequestLimit}" />
+						 <apex:selectRadio label="Sort Order"
+							value="{!gcloudprintJobsRequestSortOrder}">
+							<apex:selectOptions value="{!jobSortOrders}" />
+						</apex:selectRadio>    
+						<apex:commandButton value="Submit"
+							action="{!gcloudprintJobsRequest}" />
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection id="gcloudprintprinter" title="PRINTER"
+						columns="1" collapsible="false">
+						<apex:outputLink value="https://developers.google.com/cloud-print/docs/appInterfaces#printer">
+	                        https://developers.google.com/cloud-print/docs/appInterfaces#printer
+	                    </apex:outputLink>
+						<apex:inputText label="Printer Id"
+							value="{!gcloudprintPrinterRequestPrinterId}" />
+						 <apex:inputCheckBox label="Use Cdd"
+	                    	value="{!gcloudprintPrinterRequestUseCdd}" />
+	                    <apex:inputText label="Extra Fields"
+							value="{!gcloudprintPrinterRequestExtraFields}" />
+						<apex:commandButton value="Submit"
+							action="{!gcloudprintPrinterRequest}" />
+					</apex:pageBlockSection>
+
+					<apex:pageBlockSection id="gcloudprintsearch" title="SEARCH"
+						columns="1" collapsible="false">
+						<apex:outputLink value="https://developers.google.com/cloud-print/docs/appInterfaces#search">
+	                        https://developers.google.com/cloud-print/docs/appInterfaces#search
+	                    </apex:outputLink>
+	                    <apex:inputText label="Query"
+							value="{!gcloudprintSearchRequestQ}" />
+						<apex:selectRadio label="Type"
+							value="{!gcloudprintSearchRequestType}">
+							<apex:selectOptions value="{!printerTypes}" />
+						</apex:selectRadio>
+						<apex:selectRadio label="Connection Status"
+							value="{!gcloudprintSearchRequestConnectionStatus}">
+							<apex:selectOptions value="{!connectionStatuses}" />
+						</apex:selectRadio>
+					    <apex:inputCheckBox label="Use Cdd"
+	                    	value="{!gcloudprintSearchRequestUseCdd}" />
+	                    <apex:inputText label="Extra Fields"
+							value="{!gcloudprintSearchRequestExtraFields}" />
+						<apex:commandButton value="Submit"
+							action="{!gcloudprintSearchRequest}" />
+					</apex:pageBlockSection>
+				</apex:pageBlockSection>
+			</apex:actionRegion>
+		</apex:pageblock>
+	</apex:form>
+</apex:page>

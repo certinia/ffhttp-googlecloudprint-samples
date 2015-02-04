@@ -1,0 +1,45 @@
+<apex:page standardController="Account"
+	extensions="GoogleCloudPrintAccountController">
+	<apex:form>
+
+		<apex:pageBlock title="{!Account.Name}" id="accountPageBlock">
+
+			<apex:pageMessages />
+
+			<apex:variable var="attachmentRowNumber" value="{!0}" />
+			
+			<apex:pageBlockSection title="Account Attachments" columns="1"
+				collapsible="false">
+				<apex:pageBlockTable value="{!attachments}" var="att">
+
+					<apex:column headerValue="No."
+						style="width:20px; text-align:center;" headerClass="centertext">
+						<apex:outputText value="{0}" style="text-align:center;">
+							<apex:param value="{!attachmentRowNumber+1}" />
+						</apex:outputText>
+					</apex:column>
+
+					<apex:column headerValue="Name">
+						<apex:outputText value="{!att.Name}" />
+					</apex:column>
+
+					<apex:column headerValue="Action">
+
+						<apex:commandButton value="Print"
+							action="{!printAttachment}"
+							rerender="accountPageBlock" onComplete=""
+							rendered="{!validConnector}">
+							<apex:param name="attachmentRowNumber"
+								value="{!attachmentRowNumber}" />
+						</apex:commandButton>
+
+						<apex:variable var="attachmentRowNumber"
+							value="{!attachmentRowNumber+1}" />
+					</apex:column>
+
+				</apex:pageBlockTable>
+
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>
